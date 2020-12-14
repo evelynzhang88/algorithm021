@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+
+    // var rotate = function (nums, k) {
+    //   let temp = 0
+    //   let prevNum = 0
+    //   for (let i = 0; i < k; i++) {
+    //     prevNum = nums[nums.length - 1]
+    //     for (let j = 0; j < nums.length; j++) {
+    //       temp = nums[nums.length - j - 2]
+    //       nums[nums.length - j - 1] = temp
+    //     }
+    //     nums[0] = prevNum
+    //   }
+    //   return nums;
+    // };
+
+    // console.log(rotate([1, 2, 3, 4, 5, 6, 7], 3))
+
+
+    // public class Solution {
+    //   public void rotate(int[] nums, int k) {
+    //     int temp, previous;
+    //     for (int i = 0; i < k; i++) {
+    //       previous = nums[nums.length - 1];
+    //       for (int j = 0; j < nums.length; j++) {
+    //         temp = nums[j];
+    //         nums[j] = previous;
+    //         previous = temp;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // var rotate = function (nums, k) {
+    //   let a = new Array(nums.length)
+
+    //   for (i = 0; i < nums.length; i++) {
+    //     a[(i + k) % nums.length] = nums[i]
+    //   }
+    //   console.log(a)
+    //   for (let j = 0; j < nums.length; j++) {
+    //     nums[j] = a[j]
+    //   }
+
+    //   return nums
+    // };
+    // console.log(rotate([1,2,3,4,5,6,7], 3))
+
+    // 删除最外层括号
+    // 用栈来做 先删选出原语字符串数组
+    // 去除原语字符串最外层括号 1620
+    // var removeOuterParentheses = function (S) {
+    //   if (S === '') {
+    //     return S
+    //   }
+    //   // 匹配符
+    //   let matchString = new Map([[")", "("]])
+
+    //   // 原语字符串
+    //   let PrimitiveArr = []
+    //   let temp = []
+    //   let newArr = []
+    //   // let newString = ''
+    //   S.split('').forEach(element => {
+    //     if ((temp.length > 0) && (temp[temp.length - 1] === matchString.get(element))) {
+    //       temp.pop()
+    //     } else {
+    //       temp.push(element)
+    //     }
+    //     newArr.push(element)
+    //     if (newArr.length > 0 && temp.length === 0) {
+    //       PrimitiveArr.push(newArr.join(''))
+    //       temp = [] // 清空
+    //       newArr = []
+    //     }
+    //   });
+
+
+    //   console.log(PrimitiveArr, 'PrimitiveArr')
+    //   // 删除原语字符串的外扩号
+    //   let resultArr = []
+    //   PrimitiveArr.forEach((item) => {
+    //     let resultItem = item.toString().substring(1, item.length - 1)
+    //     resultArr.push(resultItem)
+    //   })
+
+    //   return resultArr.join('')
+    // };
+
+    // console.log(removeOuterParentheses('()(())'))
+
+    // k个数翻转链表
+    let linkList = {
+      val: 1,
+      next: {
+        val: 2,
+        next: {
+          val: 3,
+          next: {
+            val: 4,
+            next: {
+              val: 5,
+              next: {
+                val: 6,
+                next: null
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // // 1->2->3
+    // var reverseKGroup = function (head, k) {
+    //   let i = 1
+    //   // head = head.next
+    //   // console.log(head)
+    //   let temp = []
+    //   let result = {}
+    //   while (head.next !== null) {
+    //     temp.push(head)
+    //     // temp.next=head
+    //     console.log(temp, i, 'temp i')
+    //     if (i % k === 0) {
+    //       // temp.next = head
+
+    //       for (let j = 0; j < k; j++) {
+    //         result.val = temp[k - j - 1].val;
+    //         temp.pop()
+    //         if (temp.length === 0) {
+    //           result.next = null
+    //         } else {
+    //           result.next = result
+    //         }
+    //       }
+    //     }
+    //     // console.log(result, i)
+    //     head = head.next
+    //     i++;
+
+    //   }
+    // };
+
+    // reverseKGroup(linkList, 2)
+
+    // 反转链表
+    var reverseList = function (head) {
+      let newhead = {}
+      let initHead = head
+      while (head.next !== null) {
+        // 
+        head = head.next
+        if (head.next === null) {
+          // console.log()
+          while (head.next === initHead) {
+            head.next = head
+            newhead.next = head
+          }
+
+        }
+      }
+      console.log(newhead)
+    };
+
+    // reverseList(linkList)
+
+    // 有效的字母异位词:两个字符串排序后相等
+    // 思路: 1. 循环t，判断t中的每个字符是否存在在字符串s中
+    // 思路: 2. map方式
+    // var isAnagram = function (s, t) {
+    //   let isExist = true
+    //   t.split('').forEach((item, index) => {
+    //     if(s.indexOf(item) < 0){
+    //       console.log(item, item.indexOf(s))
+    //       isExist = false
+    //     }
+    //   })
+    //   return isExist
+    // };
+
+    // var isAnagram = function (s, t) {
+    //   let aS = {}
+    //   let aT = {}
+    //   let isExist = true
+    //   if (s.length !== t.length) {
+    //     isExist = false
+    //     return isExist
+    //   }
+    //   s.split('').forEach((item, index) => {
+    //     let currentNum = aS.hasOwnProperty(item) ? (parseInt(aS[item]) + 1) : 1;
+    //     aS[item] = currentNum
+    //   });
+
+    //   t.split('').forEach((item, index) => {
+    //     let currentNum = aT.hasOwnProperty(item) ? (parseInt(aT[item]) + 1) : 1;
+    //     aT[item] = currentNum
+    //   })
+
+    //   for (let key in aS) {
+    //     if (aS[key] !== aT[key]) {
+    //       isExist = false
+    //       return isExist
+    //     }
+    //   }
+    //   return isExist
+    // };
+
+    // console.log(isAnagram('abc', 'cba'))
+
+    // 二叉树：前序遍历
+    function TreeNode(val, left, right) {
+      this.val = (val === undefined) ? 0 : val
+      this.left = (left === undefined) ? null : left
+      this.right = (right === undefined) ? null : right
+    }
+
+    // @param {TreeNode} root
+    // @return {number[]}
+    let preOrderTraversal = function (root) {
+      let result = []
+      let preOrder = (node) => {
+        if (node) {
+          result.push(node.val)
+          preOrder(node.left)
+          preOrder(node.right)
+        }
+      }
+      preOrder(root)
+      return result
+    }
+
+    const root = {
+      val: 1,
+      left: {
+        val: 2,
+        left: null,
+        right: null
+      },
+      right: {
+        val: 2,
+        left: { val: 3, left: null, right: null },
+        right: null,
+      },
+    };
+
+    preOrderTraversal(root)
+
+
+  </script>
+
+</body>
+
+</html>
