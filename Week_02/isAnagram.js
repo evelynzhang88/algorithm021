@@ -26,3 +26,21 @@ var isAnagram = function (s, t) {
   }
   return isExist
 };
+
+// 最小的k个数，先排序，再获取
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number[]}
+ */
+var getLeastNumbers = function (arr, k) {
+  let sortArr = arr.sort(function (a, b) {
+    return a - b
+  })
+  let result = []
+  for (let i = 0; i < k; i++) {
+    result.push(sortArr[i])
+  }
+  return result
+};
+

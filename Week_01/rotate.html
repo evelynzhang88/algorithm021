@@ -254,7 +254,84 @@
       },
     };
 
-    preOrderTraversal(root)
+    // preOrderTraversal(root)
+
+    // 两数之和：用hash的方式去做
+    // @param {number[]} nums
+    // @param {number} target
+    // @param {number[]} 数组下标
+    // 思路：nums 转换成 
+    // [1,2,3,4,5] 6
+
+    let twoSum = function (nums, target) {
+      let resultMap = new Map()
+      let result = []
+      nums.forEach((item, index) => {
+        resultMap.set(item, index)
+      });
+      console.log(resultMap, 'resultMap')
+      nums.forEach((item, index) => {
+        let anotherNumber = target - item
+        console.log(anotherNumber)
+        if (resultMap.has(anotherNumber) && (resultMap.get(anotherNumber) !== index) && !result.includes(index)) {
+          result.push(index, resultMap.get(anotherNumber));
+        }
+      })
+      return result
+    }
+
+    // twoSum([2, 7], 9)
+
+
+    // 二叉树的中序遍历（左，根，右）
+    // const root = {
+    //   val: 1,
+    //   left: {
+    //     val: 2,
+    //     left: null,
+    //     right: null
+    //   },
+    //   right: {
+    //     val: 2,
+    //     left: { val: 3, left: null, right: null },
+    //     right: null,
+    //   },
+    // };
+    var inorderTraversal = function (root) {
+      let result = []
+      let i = 0
+      let inOrder = function (node) {
+        i++
+        if (node) {
+          console.log(node, i)
+          inOrder(node.left)
+          result.push(node.val)
+          inOrder(node.right)
+        }
+      }
+      inOrder(root)
+      console.log(result)
+      return result
+    };
+
+    // inorderTraversal(root)
+
+    // 最小的k个数，先排序，再获取
+    /**
+     * @param {number[]} arr
+     * @param {number} k
+     * @return {number[]}
+     */
+    var getLeastNumbers = function (arr, k) {
+      let sortArr = arr.sort(function (a, b) {
+        return a - b
+      })
+      let result = []
+      for (let i = 0; i < k; i++) {
+        result.push(sortArr[i])
+      }
+      return result
+    };
 
 
   </script>

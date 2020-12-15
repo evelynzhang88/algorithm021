@@ -36,3 +36,22 @@ const root = {
 };
 
 preOrderTraversal(root)
+
+// 二叉树的中序遍历（左，根，右）
+var inorderTraversal = function (root) {
+  let result = []
+  let i = 0
+  let inOrder = function (node) {
+    i++
+    if (node) {
+      inOrder(node.left)
+      result.push(node.val)
+      inOrder(node.right)
+    }
+  }
+  inOrder(root)
+  return result
+};
+
+inorderTraversal(root)
+
