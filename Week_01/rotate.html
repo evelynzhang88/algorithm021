@@ -403,13 +403,7 @@
 
     // generateParenthesis(3)
 
-    // 翻转二叉树
-    // linkList
-    //     4
-    //    /   \
-    //   2     7
-    //  / \   / \
-    // 1   3 6   9
+
 
     let bTree = {
       val: 4,
@@ -419,7 +413,10 @@
           val: 1
         },
         right: {
-          val: 3
+          val: 3,
+          left: {
+            val: 11
+          }
         }
       },
       right: {
@@ -433,9 +430,19 @@
       }
     }
 
+    let i = 0
+    // 翻转二叉树
+    // linkList
+    //      4
+    //    /   \
+    //   2     7
+    //  / \  /   \
+    // 1   3 6    9
+    //    /
+    //   11 
     // console.log(bTree, 'bTree')
     var invertTree = function (root) {
-
+      // console.log(root, i++, 'i')
       if (root == null) { // 遍历到null节点时，不用翻转，直接返回它本身
         return root;
       }
@@ -444,8 +451,10 @@
       invertTree(root.right);
       // 交换
       const temp = root.left;
+      // console.log(temp, 'temp')
       root.left = root.right;
       root.right = temp;
+      console.log(root)
       return root;
     };
 
@@ -453,9 +462,52 @@
     // invertTree(bTree)
 
     // 二叉树的最近公共祖先
+
     var lowestCommonAncestor = function (root, p, q) {
 
+      console.log(root, 'root')
+      // console.log(root.hasOwnProperty('right'))
+      if (root === undefined) {
+        return null
+      }
+      if ((!root.hasOwnProperty('left')) && (!root.hasOwnProperty('right'))) {
+        // console.log(root, 'root1')
+        return null
+      }
+      if ((root.val === p.val) || (root.val === q.val)) {
+        console.log(root, 'root2')
+        return root;
+      }
+
+      // console.log(root.left)
+      let left = lowestCommonAncestor(root.left, p, q);
+      let right = lowestCommonAncestor(root.right, p, q);
+      // console.log('right', right)
+
+      console.log('left', left)
+      if (left && right) {
+        console.log(root, 'root 3')
+        return root;
+      }
+      // console.log(left, 'root 7')
+      if (left === null) {
+        console.log(right, 'root 4')
+        return right
+      }
+
+      // console.log(left, 'root 5')
+      return left;
     };
+    // linkList
+    //      4
+    //    /   \
+    //   2     7
+    //  / \  /   \
+    // 1   3 6    9
+    //    /
+    //   11 
+    // console.log(lowestCommonAncestor(bTree, bTree.right.right, bTree.right.right), 'result')
+    // console.log()
 
     function ListNode(val) {
       this.val = val
@@ -588,6 +640,167 @@
      * var param_7 = obj.isEmpty()
      * var param_8 = obj.isFull()
      */
+
+    // 全排列[1,2,3]
+    const permute = (nums) => {
+      const res = [];
+      const used = {};
+
+      function dfs(path) {
+        if (path.length == nums.length) {
+          console.log(path)
+          res.push(path.slice());
+          return;
+        }
+        for (const num of nums) {
+          // if (path.includes(num)) continue; // 查找的时间是O(n)，别这么写，时间复杂度增加
+          if (used[num]) continue;
+          path.push(num);
+          used[num] = true;
+          dfs(path);
+          path.pop();
+          used[num] = false;
+        }
+      }
+
+      dfs([]);
+      console.log(res)
+      return res;
+    };
+
+    // permute([1, 2, 3])
+
+
+    // 122. 买卖股票的最佳时机 II 贪心算法
+    var maxProfit = function (prices) {
+      let ans = 0;
+      let n = prices.length
+      for (let i = 1; i < n; i++) {
+        ans = ans + Math.max(0, prices[i] - prices[i - 1])
+      }
+      return ans
+    };
+
+    // 组合
+    // 1->n 
+    // 递归 [1,2,3,4] => 2个数字组合
+    // 使用回溯算法
+    var combine = function (n, k) {
+      let result = [];
+
+      const helper = (start, path) => {
+        console.log('recursion start path', start, path)
+        if (path.length === k) {
+          result.push(path.slice())
+          console.log('full end path', path)
+          return
+        }
+        for (let j = start; j < n + 1; j++) {
+          console.log('loop1')
+          console.log(j, 'j')
+          path.push(j)
+          helper(j + 1, path)
+          console.log('path pop start', path)
+          path.pop()
+          console.log('path pop end', path)
+        }
+      }
+
+      helper(1, []);
+      console.log(result)
+      return result
+    };
+
+    // combine(4, 2)
+
+
+    /**
+   * @param {number} x
+   * @param {number} n
+   * @return {number}
+   */
+    // x的n次幂函数
+    // 暴力方法
+    var myPow2 = function (x, n) {
+      let result = 1
+      for (let j = 0; j < n; j++) {
+        result = result * x
+      }
+      return result
+    };
+
+
+    // 二分法
+    var myPow = function (x, n) {
+      if (x === 0) { return 0 }
+      if (n === 0) { return 1 }
+      if (n < 0) { return 1 / myPow(x, -n) }
+      if (n % 2) {
+        // n is odd
+        return x * myPow(x, n - 1)
+      }
+
+      return myPow(x * x, n / 2)
+    };
+
+    // console.log(myPow(2, -2))
+
+
+    // 多数元素
+    var majorityElement = function (nums) {
+      let elementMap = new Map()
+      for (let i = 0; i < nums.length; i++) {
+        elementMap.set(nums[i], elementMap.has(nums[i]) ? (elementMap.get(nums[i]) + 1) : 1);
+      }
+      let benchmark = nums.length / 2
+      let result = []
+      for (const element of elementMap) {
+        if (element[1] >= benchmark) {
+          result.push(element[0])
+        }
+      }
+      return result
+    };
+
+    // majorityElement([1, 9, 2, 2, 2, 3])
+
+    // 凌檬水找零
+    var lemonadeChange = function (bills) {
+      let five = 0;
+      let ten = 0;
+      for (const item of bills) {
+        if (item === 5) {
+          five++
+        } else if (item === 10) {
+          if (five === 0) {
+            return false
+          }
+          ten++
+          five--
+        } else {
+          if ((five > 0 && ten > 0)) {
+            ten--;
+            five--;
+          } else if (five > 2 && ten === 0) {
+            five = five - 3;
+          } else {
+            return false
+          }
+        }
+      }
+
+      return true
+    };
+
+    
+
+
+
+
+
+
+
+
 
   </script>
 

@@ -31,3 +31,48 @@ const lowestCommonAncestor = (root, p, q) => {
   }
   return left;
 };
+
+// 组合：使用回溯算法
+var combine = function (n, k) {
+  let result = [];
+
+  const helper = (start, path) => {
+    if (path.length === k) {
+      result.push(path.slice())
+      return
+    }
+    for (let j = start; j < n + 1; j++) {
+      path.push(j)
+      helper(j + 1, path)
+      path.pop()
+    }
+  }
+
+  helper(1, []);
+  return result
+};
+
+combine(4, 2)
+
+
+// 暴力方法
+var myPow2 = function (x, n) {
+  let result = 1
+  for (let j = 0; j < n; j++) {
+    result = result * x
+  }
+  return result
+};
+
+
+// 二分法
+var myPow = function (x, n) {
+  if (x === 0) { return 0 }
+  if (n === 0) { return 1 }
+  if (n < 0) { return 1 / myPow(x, -n) }
+  if (n % 2) {
+    // n is odd
+    return x * myPow(x, n - 1)
+  }
+  return myPow(x * x, n / 2)
+};
